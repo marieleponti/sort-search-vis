@@ -1,7 +1,7 @@
 public class BinarySearchTree<AnyType extends Comparable<? super AnyType>> {
 
     // Embedded class Node in class BinarySearchTree
-    private static class Node<AnyType>{
+    private class Node<AnyType>{
         Node<AnyType> left;
         Node<AnyType> right;
         AnyType data;
@@ -79,7 +79,12 @@ public class BinarySearchTree<AnyType extends Comparable<? super AnyType>> {
     }
 
     /* Private insert() method which inserts element into
-     * tree and returns the root node after insert. */
+     * tree and returns the root node after insert.
+     * if the element to be inserted x is less than t's element, and
+     * t has no left child, insert x here. otherwise recursive call to
+     * method with t's left child node. If x is greater than t's
+     * element, and there is no right child, insert there. Otherwise
+     * recursive call to insert with t's right child node.*/
     private Node<AnyType> insert(AnyType x, Node<AnyType> t){
         if (t == null) return new Node(x);
         int compare = x.compareTo(t.data);
@@ -99,6 +104,14 @@ public class BinarySearchTree<AnyType extends Comparable<? super AnyType>> {
         return t;
     }
 
+    /* private remove method that returns a Node of AnyType.
+    * Parameters are AnyType and the root node. If x is less
+    * than root node's data go left. If greater, goes right.
+    * Otherwise (the element to be removed has been found):
+    * If two children: replace calling node's element with
+    * the greatest value of right subtree. Then remove the
+    * original node from left subtree.
+    * */
     private Node<AnyType> remove(AnyType x, Node<AnyType> t){
         if (t == null) {
             return null;
