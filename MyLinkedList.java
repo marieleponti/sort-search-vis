@@ -79,6 +79,7 @@ public class MyLinkedList<AnyType> implements Iterable<AnyType> {
                 tail = tail.previous;
                 return dataToRemove;
             }
+            theSize--;
         }
         return null;
     }
@@ -93,7 +94,10 @@ public class MyLinkedList<AnyType> implements Iterable<AnyType> {
             head.previous = myNode;
             head = myNode;
         }
+        theSize++;
     }
+
+    public void print(){print(head);}
 
     private Node<AnyType> getNode(int idx){
         Node<AnyType> marker;
@@ -138,6 +142,15 @@ public class MyLinkedList<AnyType> implements Iterable<AnyType> {
         p.previous.next = p.next;
         theSize--;
         return p.data;
+    }
+
+    public void print(Node<AnyType> t){
+        if (t != null){
+            System.out.println(t.data);
+            while (t.next != null){
+                print(t.next);
+            }
+        }
     }
 
     public Iterator<AnyType> iterator(){return new LinkedListIterator();}

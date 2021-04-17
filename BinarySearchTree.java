@@ -1,7 +1,7 @@
 public class BinarySearchTree<AnyType extends Comparable<? super AnyType>> {
 
     // Embedded class Node in class BinarySearchTree
-    private class Node<AnyType>{
+    private static class Node<AnyType>{
         Node<AnyType> left;
         Node<AnyType> right;
         AnyType data;
@@ -78,6 +78,8 @@ public class BinarySearchTree<AnyType extends Comparable<? super AnyType>> {
          }
     }
 
+    public void print(){printLevelOrder(root);}
+
     /* Private insert() method which inserts element into
      * tree and returns the root node after insert.
      * if the element to be inserted x is less than t's element, and
@@ -144,4 +146,9 @@ public class BinarySearchTree<AnyType extends Comparable<? super AnyType>> {
         if (t.right != null) return findMax(t.right);
         return t;
     }
+
+    private void printLevelOrder(Node<AnyType> t){
+
+    }
+
 }
