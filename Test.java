@@ -35,7 +35,7 @@ public class Test {
             BST.insert(num);
 
         }
-        System.out.println("Level order traversal:\n");
+        System.out.println("Level order traversal:");
         BST.print();
         System.out.println();
 
@@ -44,10 +44,20 @@ public class Test {
         for (int i = 0; i < strArr.length; i++){
             BST1.insert(strArr[i]);
         }
-
-        System.out.println("Level order traversal:\n");
+        System.out.println("Level order traversal:");
         BST1.print();
         System.out.println();
 
+        System.out.println("********************* AVL Tree *********************");
+        BinarySearchTree AVLtree = new AVLTree();
+        for (int i = 0; i < 10; i++){
+            int num = (int) (Math.random() * 100);
+            System.out.print("insert " + num + ", \n");
+            AVLtree.insert(num);
+
+        }
+        System.out.println("Level order traversal:");
+        AVLtree.print();
+        System.out.println();
     }
 }

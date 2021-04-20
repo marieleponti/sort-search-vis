@@ -40,15 +40,24 @@ public class AVLTree<AnyType extends Comparable<? super AnyType>> extends  Binar
                 t = doubleWithLeftChild(t);
             }
         } else if (height(t.right) - height(t.left) > maxHeightDif){
-
+            // right subtree's height needs to be reduced
+            /* check if right subtree's right side is taller than
+             * right subtree's left side
+             */
+            if (height(t.right.right) >= height(t.right.left)){
+                t = rotateWithRightChild(t);
+            } else {
+                t = doubleWithRightChild(t);
+            }
         }
+        t.height = Math.max(height(t.left), height(t.right)) + 1;
         return t;
     }
 
     private Node<AnyType> rotateWithLeftChild(Node<AnyType> k2){
         Node<AnyType> k1 = k2.left;
-        k2.right = k1.left;
-        k1.left = k2;
+        k2.left = k1.right;
+        k1.right = k2;
         k2.height = Math.max(height(k2.left), height(k2.right)) + 1;
         k1.height = Math.max( k2.height, height(k2.right)) + 1;
         return k1;
@@ -56,8 +65,8 @@ public class AVLTree<AnyType extends Comparable<? super AnyType>> extends  Binar
 
     private Node<AnyType> rotateWithRightChild(Node<AnyType> k2){
         Node<AnyType> k1 = k2.right;
-        k2.left = k1.right;
-        k1.right = k2;
+        k2.right = k1.left;
+        k1.left = k2;
         k2.height = Math.max(height(k2.left), height(k2.right)) + 1;
         k1.height = Math.max(height(k1.left), k2.height) + 1;
         return k1;
