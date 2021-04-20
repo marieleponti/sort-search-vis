@@ -70,16 +70,16 @@ public class MyLinkedList<AnyType> implements Iterable<AnyType> {
 
     public AnyType removeFromEnd(){
         if (tail != null){
+            AnyType dataToRemove = tail.data;
             if (head == tail){
                 head = null;
                 tail = null;
             } else {
-                AnyType dataToRemove = tail.data;
                 tail.previous.next = null;
                 tail = tail.previous;
-                return dataToRemove;
             }
             theSize--;
+            return dataToRemove;
         }
         return null;
     }

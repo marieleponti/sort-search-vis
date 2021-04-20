@@ -1,30 +1,14 @@
 public class BinarySearchTree<AnyType extends Comparable<? super AnyType>> {
 
-    // Embedded class Node in class BinarySearchTree
-    private static class Node<AnyType>{
-        Node<AnyType> left;
-        Node<AnyType> right;
-        AnyType data;
-
-        // Constructors
-        Node(AnyType element){
-            data = element;
-            left= null;
-            right = null;
-        }
-
-        Node(AnyType element, Node<AnyType> lt, Node<AnyType> rt){
-            data = element;
-            left = lt;
-            right = rt;
-        }
-    }
-
-    private Node<AnyType> root;
+    TreeNode<AnyType> root;
 
     // Constructor BinarySearchTree
     public BinarySearchTree(){
         root = null;
+    }
+
+    public BinarySearchTree(TreeNode<AnyType> node){
+        root = node;
     }
 
     // public method isEmpty
@@ -60,13 +44,15 @@ public class BinarySearchTree<AnyType extends Comparable<? super AnyType>> {
         return findMin(root).data;
     }
 
+    public boolean find(AnyType x){return find(x, root); }
+
     /* private contains() method
      * If root is null return false. Otherwise, compare node (root to begin)'s element to
      * element x being searched for. If x < node's element, go left in the tree.
      * That is, recursively call contains method on t.left. If x > node's element,
      * go right in the tree-> call contains on t.right. Otherwise (x is neither less than
      * nor greater than node's element), x == node's element, return true. */
-    private boolean contains(AnyType x, Node<AnyType> t){
+    private boolean contains(AnyType x, TreeNode<AnyType> t){
          if (t == null) return false;
          int compare = x.compareTo(t.data);
          if (compare < 0){
@@ -87,18 +73,18 @@ public class BinarySearchTree<AnyType extends Comparable<? super AnyType>> {
      * method with t's left child node. If x is greater than t's
      * element, and there is no right child, insert there. Otherwise
      * recursive call to insert with t's right child node.*/
-    private Node<AnyType> insert(AnyType x, Node<AnyType> t){
-        if (t == null) return new Node(x);
+    private TreeNode<AnyType> insert(AnyType x, TreeNode<AnyType> t){
+        if (t == null) return new TreeNode(x);
         int compare = x.compareTo(t.data);
         if (compare <= 0){
             if (t.left == null){
-                t.left = new Node(x);
+                t.left = new TreeNode(x);
             } else {
                 insert(x, t.left);
             }
         } else if (compare > 0){
             if (t.right == null){
-                t.right = new Node(x);
+                t.right = new TreeNode(x);
             } else {
                 insert(x, t.right);
             }
@@ -114,7 +100,7 @@ public class BinarySearchTree<AnyType extends Comparable<? super AnyType>> {
     * the greatest value of right subtree. Then remove the
     * original node from left subtree.
     * */
-    private Node<AnyType> remove(AnyType x, Node<AnyType> t){
+    private TreeNode<AnyType> remove(AnyType x, TreeNode<AnyType> t){
         if (t == null) {
             return null;
         }
@@ -135,20 +121,48 @@ public class BinarySearchTree<AnyType extends Comparable<? super AnyType>> {
         return t;
     }
 
-    private Node<AnyType> findMin(Node<AnyType> t){
+    private TreeNode<AnyType> findMin(TreeNode<AnyType> t){
         if (t == null) return null;
         if (t.left != null) return findMin(t.left);
         return t;
     }
 
-    private Node<AnyType> findMax(Node<AnyType> t){
+    private TreeNode<AnyType> findMax(TreeNode<AnyType> t){
         if (t == null) return null;
         if (t.right != null) return findMax(t.right);
         return t;
     }
 
-    private void printLevelOrder(Node<AnyType> t){
+    private boolean find(AnyType element, TreeNode<AnyType> t){
+        if (t.data == element) {
+            return true;
+        } else if (t.left != null && t.right != null){
+            return find(element, t.left) || find(element, t.right);
+        } else if (t.left != null){
+            return find(element, t.left);
+        } else if (t.right != null){
+            return find(element, t.right);
+        } else {
+            return false;
+        }
+    }
 
+    public void printLevelOrder(TreeNode<AnyType> t){
+        if (t == null) {
+            return;
+        }
+        Queue<TreeNode<AnyType>> q = new Queue<TreeNode<AnyType>>();
+        q.enqueue(t);
+        while (!q.isEmpty()){
+            TreeNode<AnyType> node = q.dequeue();
+            System.out.println(node.data);
+            if (node.left != null){
+                q.enqueue(node.left);
+            }
+            if (node.right != null){
+                q.enqueue(node.right);
+            }
+        }
     }
 
 }
