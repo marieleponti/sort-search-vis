@@ -23,7 +23,13 @@ public class AVLTree<AnyType extends Comparable<? super AnyType>> extends  Binar
     }
 
     private Node<AnyType> insert(AnyType x, Node<AnyType> t){
-        super.insert(x);
+        if (t == null) return new Node<AnyType>(x);
+        int compare = x.compareTo(t.data);
+        if (compare <= 0){
+            t.left = insert(x, t.left);
+        } else if (compare > 0){
+            t.right = insert(x, t.right);
+        }
         return balance(t);
     }
 
