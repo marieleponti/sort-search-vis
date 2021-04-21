@@ -46,6 +46,10 @@ public class BinarySearchTree<AnyType extends Comparable<? super AnyType>> {
 
     public boolean find(AnyType x){return find(x, root); }
 
+    public void print(){printLevelOrder(root);}
+
+    public void printInOrder(){printInOrder(root);}
+
     /* private contains() method
      * If root is null return false. Otherwise, compare node (root to begin)'s element to
      * element x being searched for. If x < node's element, go left in the tree.
@@ -63,8 +67,6 @@ public class BinarySearchTree<AnyType extends Comparable<? super AnyType>> {
              return true;
          }
     }
-
-    public void print(){printLevelOrder(root);}
 
     /* Private insert() method which inserts element into
      * tree and returns the root node after insert.
@@ -147,7 +149,8 @@ public class BinarySearchTree<AnyType extends Comparable<? super AnyType>> {
         }
     }
 
-    public void printLevelOrder(TreeNode<AnyType> t){
+    /********************** Breadth First Search ****************************/
+    private void printLevelOrder(TreeNode<AnyType> t){
         if (t == null) {
             return;
         }
@@ -165,4 +168,15 @@ public class BinarySearchTree<AnyType extends Comparable<? super AnyType>> {
         }
     }
 
+    /********************** Depth First Search ****************************/
+    public void printInOrder(TreeNode<AnyType> t){
+        if (t == null) return;
+        if (t.left != null){
+            printInOrder(t.left);
+        }
+        System.out.println(t.data);
+        if (t.right != null){
+            printInOrder(t.right);
+        }
+    }
 }
