@@ -20,8 +20,8 @@ import java.util.Arrays;
  * 	Depth-First Search
  *
  * 	Week 4: 4/27/
- * 	1. insertion sort, quick sort, avl tree sort
- * 	2. Bubble sort, selection sort, radix sort, binary search tree sort
+ * 	1. insertion sort, quick sort, bubble sort, selection sort,
+ * 	2. radix sort, binary search tree sort, avl tree sort
  * 	3. gui, input from user, display in gui
  * 	4. debugging & final testing
  * **/
@@ -80,12 +80,12 @@ public class Main {
         return -1; // error: not found
     }
 
-    public void mergesort(int[] arr){
+    public static void mergesort(int[] arr){
         int[] helper = new int[arr.length];
         mergesort(arr, helper, 0, arr.length - 1);
     }
 
-    public void mergesort(int[] arr, int[] aux, int low, int high){
+    public static void mergesort(int[] arr, int[] aux, int low, int high){
         if (low < high){
             int mid = (high - low)/2 + low;
             mergesort(arr, aux, low, mid);
@@ -117,6 +117,7 @@ public class Main {
                 trackRight++;
             }
             current++;
+            printArray(arr);
         }
         int remaining = mid - trackLeft;
         for (int i = 0; i < remaining; i++){
@@ -124,8 +125,48 @@ public class Main {
         }
     }
 
-    public static void quicksort(int[]array, int left, int right){
+    public static void quicksort(int[] array){
+        quicksort(array, 0, array.length - 1);
+    }
 
+    public static void quicksort(int[]array, int left, int right){
+        if (left >= right) {
+            return;
+        }
+        int pivot = array[(left + right) / 2];
+        System.out.print("Pivot is " + pivot + " | ");
+        int index = partition(array, left, right, pivot);
+        if (left < index - 1){
+            // sort left half
+            quicksort(array, left, index - 1);
+        }
+        if (right > index){
+            quicksort(array, index, right);
+        }
+    }
+
+    public static int partition(int[] arr, int left, int right, int pivot){
+        while (left <= right){
+            while (arr[left] < pivot){
+                left++;
+            }
+            while (arr[right] > pivot){
+                right--;
+            }
+            if (left <= right){
+                swap(arr, left, right);
+                left++;
+                right--;
+            }
+            printArray(arr);
+        }
+        return left;
+    }
+
+    public static void swap(int[] arr, int index1, int index2){
+        int temp = arr[index1];
+        arr[index1] = arr[index2];
+        arr[index2] = temp;
     }
 
     public static void insertionsort(int array){
@@ -208,23 +249,31 @@ public class Main {
         avlTree1.print();
         System.out.println();
 
+        System.out.println("Array of random ints:");
+        int[] arrRandInts = new int[10];
+        for (int i = 0; i < 10; i++){
+            arrRandInts[i] = (int)(Math.random() * 100);
+        }
+        printArray(arrRandInts);
+        System.out.println("--------------------- Mergesort ---------------------");
+        mergesort(arrRandInts);
+
+        System.out.println("Array of random ints (randomize):");
+        for (int i = 0; i < 10; i++){
+            arrRandInts[i] = (int)(Math.random() * 100);
+        }
+        System.out.println("--------------------- Quicksort ---------------------");
+        quicksort(arrRandInts);
+
         System.out.println("--------------------- Binary search using array of random ints ---------------------");
-        int[] myArray = new int[10];
-        for (int i = 0; i < 10; i++){
-            myArray[i] = (int)(Math.random() * 100);
-        }
-        Arrays.sort(myArray);
-        System.out.println("Array of random ints sorted:");
-        for (int i = 0; i < 10; i++){
-            System.out.println(myArray[i] + " ");
-        }
+        System.out.println("Array of random ints:");
+        printArray(arrRandInts);
         System.out.println("--------------------- Binary search ---------------------");
-        int intToFind = myArray[7];
+        int intToFind = arrRandInts[7];
         System.out.println("Binary search for " + intToFind);
-        System.out.println("Found at index " + binarySearch(myArray, intToFind));
+        System.out.println("Found at index " + binarySearch(arrRandInts, intToFind));
         System.out.println("Recursive binary search for " + intToFind);
-        System.out.println("Found at index " + binarySearchRecursiveAux(myArray, intToFind));
-        Arrays.sort(strArr);
+        System.out.println("Found at index " + binarySearchRecursiveAux(arrRandInts, intToFind));
         String strToFind = strArr[3];
         System.out.println("Binary search (generic method) for " + strToFind);
         System.out.println("Found at index " + binarySearch(strArr, strToFind));
