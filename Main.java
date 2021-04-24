@@ -125,6 +125,19 @@ public class Main {
         }
     }
 
+    public static void insertionsort(int[] array){
+        for (int i = 1; i < array.length; i++){
+            int key = array[i];
+            int j = i - 1;
+            while (j >= 0 && array[j] > key){
+                array[j + 1] = array[j];
+                j--;
+                printArray(array);
+            }
+            array[j + 1] = key;
+        }
+    }
+
     public static void quicksort(int[] array){
         quicksort(array, 0, array.length - 1);
     }
@@ -264,6 +277,13 @@ public class Main {
         }
         System.out.println("--------------------- Quicksort ---------------------");
         quicksort(arrRandInts);
+
+        System.out.println("Array of random ints (randomize):");
+        for (int i = 0; i < 10; i++){
+            arrRandInts[i] = (int)(Math.random() * 100);
+        }
+        System.out.println("--------------------- Insertionsort ---------------------");
+        insertionsort(arrRandInts);
 
         System.out.println("--------------------- Binary search using array of random ints ---------------------");
         System.out.println("Array of random ints:");
