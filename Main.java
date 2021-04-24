@@ -176,14 +176,26 @@ public class Main {
         return left;
     }
 
+    public static void bubblesort(int[] arr){
+        int i = 0;
+        boolean swap = true;
+        while (swap){
+            swap = false;
+            i++;
+            for (int j = 0; j < arr.length - i; j++){
+                if (arr[j] > arr[j + 1]){
+                    swap(arr, j, j + 1);
+                }
+                swap = true;
+                printArray(arr);
+            }
+        }
+    }
+
     public static void swap(int[] arr, int index1, int index2){
         int temp = arr[index1];
         arr[index1] = arr[index2];
         arr[index2] = temp;
-    }
-
-    public static void insertionsort(int array){
-
     }
 
     public static void printArray(int[] arr){
@@ -262,33 +274,37 @@ public class Main {
         avlTree1.print();
         System.out.println();
 
-        System.out.println("Array of random ints:");
+        System.out.println("--------------------- Mergesort ---------------------");
         int[] arrRandInts = new int[10];
         for (int i = 0; i < 10; i++){
             arrRandInts[i] = (int)(Math.random() * 100);
         }
         printArray(arrRandInts);
-        System.out.println("--------------------- Mergesort ---------------------");
         mergesort(arrRandInts);
 
-        System.out.println("Array of random ints (randomize):");
+        System.out.println("--------------------- Quicksort ---------------------");
         for (int i = 0; i < 10; i++){
             arrRandInts[i] = (int)(Math.random() * 100);
         }
-        System.out.println("--------------------- Quicksort ---------------------");
+        printArray(arrRandInts);
         quicksort(arrRandInts);
 
-        System.out.println("Array of random ints (randomize):");
+        System.out.println("--------------------- Insertionsort ---------------------");
         for (int i = 0; i < 10; i++){
             arrRandInts[i] = (int)(Math.random() * 100);
         }
-        System.out.println("--------------------- Insertionsort ---------------------");
+        printArray(arrRandInts);
         insertionsort(arrRandInts);
 
-        System.out.println("--------------------- Binary search using array of random ints ---------------------");
-        System.out.println("Array of random ints:");
+        System.out.println("--------------------- Bubblesort ---------------------");
+        for (int i = 0; i < 10; i++){
+            arrRandInts[i] = (int)(Math.random() * 100);
+        }
         printArray(arrRandInts);
+        bubblesort(arrRandInts);
+
         System.out.println("--------------------- Binary search ---------------------");
+        printArray(arrRandInts);
         int intToFind = arrRandInts[7];
         System.out.println("Binary search for " + intToFind);
         System.out.println("Found at index " + binarySearch(arrRandInts, intToFind));
