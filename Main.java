@@ -7,23 +7,13 @@ import java.util.Arrays;
  * of the algorithm and its runtime:
  * Bubble Sort
  * Selection Sort
- * Radix Sort
- * Binary Search Tree Sort
- * AVL Tree Sort
  * Insertion Sort
  * Merge Sort
  * Quick Sort
- *
  * Binary Search
  * Graphs and Trees
- * 	Breadth-First Search
- * 	Depth-First Search
- *
- * 	Week 4: 4/27/
- * 	1. insertion sort, quick sort, bubble sort, selection sort,
- * 	2. radix sort, binary search tree sort, avl tree sort
- * 	3. gui, input from user, display in gui
- * 	4. debugging & final testing
+ * Breadth-First Search
+ * Depth-First Search
  * **/
 public class Main {
 
@@ -192,6 +182,17 @@ public class Main {
         }
     }
 
+    public static void selectionsort(int[] arr){
+        for (int i = 0; i < arr.length - 1; i++){
+            int minPtr = i;
+            for (int j = i; j < arr.length; j++){
+                if (arr[j] < arr[minPtr]) minPtr = j;
+            }
+            swap(arr, i, minPtr);
+            printArray(arr);
+        }
+    }
+
     public static void swap(int[] arr, int index1, int index2){
         int temp = arr[index1];
         arr[index1] = arr[index2];
@@ -231,20 +232,65 @@ public class Main {
         System.out.println("--------------------- Depth first search ---------------------");
         System.out.println("In order traversal:");
         BST.printInOrder();
+        System.out.println("Find min element: ");
+        System.out.println(BST.findMin());
+        System.out.println("Find max element: ");
+        System.out.println(BST.findMax());
         System.out.println();
 
         // create instance of BST of type String
         System.out.println("--------------------- BST Tree of type String ---------------------");
         BinarySearchTree BST1 = new BinarySearchTree();
         String[] strArr = {"joy", "wander", "forest", "laugh", "chat", "joke"};
+        String[] strArr1 = {"Petersburg", "Louisville", "Detroit", "Atlanta", "atlanta", "louisville",
+                "Birmingham", "Jacksonville", "Charlotte"};
         for (int i = 0; i < strArr.length; i++){
+            System.out.println("insert " + strArr[i]);
             BST1.insert(strArr[i]);
         }
-        System.out.println("Level order traversal:");
+        System.out.println("\nLevel order traversal:");
         BST1.print();
         System.out.println();
         System.out.println("In order traversal:");
         BST1.printInOrder();
+        System.out.println();
+        for (int i = 0; i < strArr1.length; i++){
+            System.out.println("insert " + strArr1[i]);
+            BST1.insert(strArr1[i]);
+        }
+        System.out.println("\nLevel order traversal:");
+        BST1.print();
+        System.out.println();
+        System.out.println("In order traversal:");
+        BST1.printInOrder();
+        System.out.println("\ncontains " + strArr1[4] + "? " + BST1.contains(strArr1[4]));
+        System.out.println("remove " + strArr1[4]);
+        BST1.remove(strArr1[4]);
+        System.out.println("In order traversal:");
+        BST1.printInOrder();
+
+        System.out.println("--------------------- Linked List of ints ---------------------");
+        MyLinkedList llint = new MyLinkedList();
+        for (int i = 0; i < 10; i++){
+            int num = (int) (Math.random() * 100);
+            System.out.print("add at end: " + num + "\n");
+            llint.addAtEnd(num);
+            llint.print();
+        }
+        System.out.println();
+
+        System.out.println("--------------------- Linked List of Strings ---------------------");
+        MyLinkedList llstr = new MyLinkedList();
+        for (int i = 0; i < strArr1.length; i++){
+            if (i % 2 == 0){
+                System.out.print("add at head: " + strArr1[i] + "\n");
+                llstr.insertAtHead(strArr1[i]);
+            } else {
+                System.out.print("add at tail: " + strArr1[i] + "\n");
+                llstr.addAtEnd(strArr1[i]);
+            }
+            llstr.print();
+        }
         System.out.println();
 
         System.out.println("--------------------- AVL Tree of random ints ---------------------");
@@ -274,7 +320,7 @@ public class Main {
         avlTree1.print();
         System.out.println();
 
-        System.out.println("--------------------- Mergesort ---------------------");
+        System.out.println("--------------------- Mergesort with ints ---------------------");
         int[] arrRandInts = new int[10];
         for (int i = 0; i < 10; i++){
             arrRandInts[i] = (int)(Math.random() * 100);
@@ -302,6 +348,13 @@ public class Main {
         }
         printArray(arrRandInts);
         bubblesort(arrRandInts);
+
+        System.out.println("--------------------- Selectionsort ---------------------");
+        for (int i = 0; i < 10; i++){
+            arrRandInts[i] = (int)(Math.random() * 100);
+        }
+        printArray(arrRandInts);
+        selectionsort(arrRandInts);
 
         System.out.println("--------------------- Binary search ---------------------");
         printArray(arrRandInts);

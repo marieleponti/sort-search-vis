@@ -59,7 +59,7 @@ public class BinarySearchTree<AnyType extends Comparable<? super AnyType>> {
     }
 
     public AnyType findMax(){
-        return findMin(root).data;
+        return findMax(root).data;
     }
 
     public boolean find(AnyType x){return find(x, root); }

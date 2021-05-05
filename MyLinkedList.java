@@ -163,12 +163,13 @@ public class MyLinkedList<AnyType> implements Iterable<AnyType> {
     }
 
     public void print(Node<AnyType> t){
-        if (t != null){
-            System.out.println(t.data);
-            while (t.next != null){
-                print(t.next);
-            }
+        System.out.println("Current linked list elements: ");
+        if (t == null) return;
+        while (t != null){
+            System.out.print(t.data + " ");
+            t = t.next;
         }
+        System.out.println();
     }
 
     public Iterator<AnyType> iterator(){return new LinkedListIterator();}
